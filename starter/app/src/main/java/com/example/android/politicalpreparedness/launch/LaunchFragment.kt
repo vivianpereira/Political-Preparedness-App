@@ -26,7 +26,7 @@ class LaunchFragment : Fragment() {
     }
 
     private fun navToElections() {
-//        this.findNavController().navigate(LaunchFragmentDirections.actionLaunchFragmentToElectionsFragment())
+        this.findNavController().navigate(LaunchFragmentDirections.actionLaunchFragmentToElectionsFragment())
     }
 
     private fun navToRepresentatives() {
