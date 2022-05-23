@@ -9,7 +9,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="launchButton" parent="TextAppearance.AppCompat.Button">
+    <style name="LaunchButton" parent="TextAppearance.AppCompat.Button">
         <item name="android:layout_marginStart">@dimen/medium_margin</item>
         <item name="android:layout_marginEnd">@dimen/medium_margin</item>
         <item name="android:background">@color/colorPrimaryDark</item>
