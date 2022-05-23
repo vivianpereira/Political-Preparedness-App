@@ -28,16 +28,20 @@
         android:id="@+id/voterInfoFragment"
         android:name="com.example.android.politicalpreparedness.election.VoterInfoFragment"
         android:label="fragment_voter_info">
-        <argument
-            android:name="arg_election_id"
-            app:argType="integer" />
-        <argument
-            android:name="arg_division"
-            app:argType="com.example.android.politicalpreparedness.network.models.Division" />
+        <!--        <argument-->
+        <!--            android:name="arg_election_id"-->
+        <!--            app:argType="integer" />-->
+        <!--        <argument-->
+        <!--            android:name="arg_division"-->
+        <!--            app:argType="com.example.android.politicalpreparedness.network.models.Division" />-->
     </fragment>
     <fragment
         android:id="@+id/electionsFragment"
         android:name="com.example.android.politicalpreparedness.election.ElectionsFragment"
-        android:label="fragment_elections" />
-
+        android:label="fragment_elections"
+        tools:layout="@layout/fragment_election">
+        <action
+            android:id="@+id/action_ElectionsFragment_to_voterInfoFragment"
+            app:destination="@id/voterInfoFragment" />
+    </fragment>
 </navigation>

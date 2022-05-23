@@ -5,25 +5,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.election.adapter.OnElectionClickListener
+import com.example.android.politicalpreparedness.network.models.Election
 
-class ElectionsFragment: Fragment() {
+class ElectionsFragment : Fragment() {
 
-    //TODO: Declare ViewModel
+    private val _viewModel: ElectionsViewModel by lazy {
+        ViewModelProvider(this).get(ElectionsViewModel::class.java)
+    }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        //TODO: Add ViewModel values and create ViewModel
+        val binding = FragmentElectionBinding.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        //TODO: Add binding values
+        val electionAdapter = ElectionListAdapter(OnElectionClickListener { navToVoterInfo(it) })
+        binding.electionRecyclerView.adapter = electionAdapter
 
-        //TODO: Link elections to voter info
+        _viewModel.upcomingElectionsList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                electionAdapter.submitList(it)
+            }
+        })
 
-        //TODO: Initiate recycler adapters
+        return binding.root
+    }
 
-        //TODO: Populate recycler adapters
-        return super.onCreateView(inflater, container, savedInstanceState)
+    private fun navToVoterInfo(election: Election) {
+        findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment())
     }
 
     //TODO: Refresh adapters when fragment loads
