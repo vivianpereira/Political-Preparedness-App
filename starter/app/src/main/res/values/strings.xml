@@ -4,7 +4,8 @@
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="ballot_image">ballot_image</string>
-
-    <!-- TODO: Add necessary string values -->
+    <string name="upcoming_elections_header">Upcoming Elections</string>
+    <string name="item_description">Description</string>
+    <string name="item_title">Title</string>
 
 </resources>
