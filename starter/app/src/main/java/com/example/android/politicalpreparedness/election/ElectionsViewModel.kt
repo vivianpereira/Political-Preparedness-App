@@ -1,37 +1,35 @@
 package com.example.android.politicalpreparedness.election
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.network.models.Division
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Election
-import java.util.*
+import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel : ViewModel() {
+class ElectionsViewModel(
+    private val electionRepository: ElectionRepository = ElectionRepository()
+) : ViewModel() {
 
-    //TODO: Create live data val for upcoming elections
-    private val _upcomingElectionsList = MutableLiveData<List<Election>>(
-        mutableListOf(createFakeElection())
-    )
+    private val _upcomingElectionsList = MutableLiveData<List<Election>>()
     val upcomingElectionsList: LiveData<List<Election>>
         get() = _upcomingElectionsList
 
-    //TODO: Create live data val for saved elections
+    init {
+        getElections()
+    }
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
+    private fun getElections() {
+        viewModelScope.launch {
+            try {
+                val elections = electionRepository.getElections()
+                _upcomingElectionsList.value = elections
+            } catch (e: Exception) {
+                Log.e("network error", e.localizedMessage)
+            }
+        }
+    }
 
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
-
-    private fun createFakeElection() = Election(
-        id = 1,
-        division = Division(
-            id = "1",
-            country = "Australia",
-            state = "QLD"
-        ),
-        electionDay = Date(),
-        name = "Election 1"
-    )
 }
