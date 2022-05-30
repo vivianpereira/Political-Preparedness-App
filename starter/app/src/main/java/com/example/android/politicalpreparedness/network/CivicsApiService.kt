@@ -39,13 +39,13 @@ interface CivicsApiService {
     suspend fun getElections(): ElectionResponse
 
     @GET("voterinfo")
-    fun getVoterInfo(
+    suspend fun getVoterInfo(
         @Query("address") address: String,
         @Query("electionId") electionId: Int
     ): VoterInfoResponse
 
     @GET("representatives")
-    fun getRepresentatives(@Query("address") address: String): RepresentativeResponse
+    suspend fun getRepresentatives(@Query("address") address: String): RepresentativeResponse
 }
 
 object CivicsApi {
