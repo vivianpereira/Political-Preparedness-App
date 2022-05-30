@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.database.ElectionDataSource
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Election
 import kotlinx.coroutines.launch
 
 class ElectionsViewModel(
-    private val electionRepository: ElectionRepository = ElectionRepository()
+    private val electionRepository: ElectionDataSource = ElectionRepository()
 ) : ViewModel() {
 
     private val _upcomingElectionsList = MutableLiveData<List<Election>>()
