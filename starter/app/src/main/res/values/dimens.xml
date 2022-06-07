@@ -8,6 +8,7 @@
 
     <!-- PADDING -->
     <dimen name="small_padding">8dp</dimen>
+    <dimen name="medium_padding">12dp</dimen>
 
     <!-- FONTS -->
     <dimen name="medium_text_size">18sp</dimen>

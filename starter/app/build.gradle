@@ -16,6 +16,7 @@ android {
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,13 +24,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    testOptions.unitTests {
-        includeAndroidResources = true
-        returnDefaultValues = true
-    }
-    dataBinding {
-        enabledForTests = true
     }
     androidExtensions {
         experimental = true
@@ -80,8 +74,20 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    //Koin
+    // Koin Core features
     implementation "io.insert-koin:koin-core:$koinVersion"
+    // Koin Test features
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
+    // Koin for JUnit 4
+    testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
+    // Koin main features for Android
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    // No more koin-android-viewmodel, koin-android-scope, koin-android-fragment
+
+    // Navigation Graph
+    implementation "io.insert-koin:koin-androidx-navigation:$koinVersion"
+    // SLF4J Logger
+    implementation "io.insert-koin:koin-logger-slf4j:$koinVersion"
 
     //Coroutines Dependencies
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android"
@@ -89,7 +95,6 @@ dependencies {
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
-    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
