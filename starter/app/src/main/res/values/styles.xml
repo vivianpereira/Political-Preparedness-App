@@ -16,4 +16,14 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="VoterInfoDate">
+        <item name="android:layout_margin">@dimen/medium_padding</item>
+    </style>
+
+    <style name="VoterInfoHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+    </style>
+
+
 </resources>

@@ -1,32 +1,54 @@
 package com.example.android.politicalpreparedness.election
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 
 class VoterInfoFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    val args: VoterInfoFragmentArgs by navArgs()
 
-        //TODO: Add ViewModel values and create ViewModel
+    private val _viewModel: VoterInfoViewModel by lazy {
+        ViewModelProvider(this)[VoterInfoViewModel::class.java]
+    }
 
-        //TODO: Add binding values
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        val binding = FragmentVoterInfoBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = _viewModel
+
+        _viewModel.setElection(args.election)
 
         //TODO: Populate voter info -- hide views without provided data.
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
-        */
+         */
 
-
-        //TODO: Handle loading of URLs
+        _viewModel.url.observe(viewLifecycleOwner, Observer {
+            startUrl(it)
+            _viewModel.getVoterInfo()
+        })
 
         //TODO: Handle save button UI state
+
         //TODO: cont'd Handle save button clicks
-        return super.onCreateView(inflater, container, savedInstanceState)
+
+        return binding.root
     }
 
-    //TODO: Create method to load URL intents
-
+    private fun startUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
 }

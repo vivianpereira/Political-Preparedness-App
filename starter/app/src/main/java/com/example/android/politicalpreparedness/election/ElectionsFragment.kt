@@ -16,7 +16,7 @@ import com.example.android.politicalpreparedness.network.models.Election
 class ElectionsFragment : Fragment() {
 
     private val _viewModel: ElectionsViewModel by lazy {
-        ViewModelProvider(this).get(ElectionsViewModel::class.java)
+        ViewModelProvider(this)[ElectionsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -41,7 +41,11 @@ class ElectionsFragment : Fragment() {
     }
 
     private fun navToVoterInfo(election: Election) {
-        findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment())
+        findNavController().navigate(
+            ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                election
+            )
+        )
     }
 
     //TODO: Refresh adapters when fragment loads
