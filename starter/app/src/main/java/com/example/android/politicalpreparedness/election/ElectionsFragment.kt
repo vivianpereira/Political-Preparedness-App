@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 import com.example.android.politicalpreparedness.election.adapter.OnElectionClickListener
 import com.example.android.politicalpreparedness.network.models.Election
+import org.koin.android.ext.android.inject
 
 class ElectionsFragment : Fragment() {
 
-    private val _viewModel: ElectionsViewModel by lazy {
-        ViewModelProvider(this)[ElectionsViewModel::class.java]
-    }
+    private val _viewModel: ElectionsViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
