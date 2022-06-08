@@ -6,12 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.database.ElectionDataSource
-import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.network.models.Election
 import kotlinx.coroutines.launch
 
 class ElectionsViewModel(
-    private val electionRepository: ElectionDataSource = ElectionRepository()
+    private val electionRepository: ElectionDataSource
 ) : ViewModel() {
 
     private val _upcomingElectionsList = MutableLiveData<List<Election>>()
@@ -28,7 +27,7 @@ class ElectionsViewModel(
                 val elections = electionRepository.getElections()
                 _upcomingElectionsList.value = elections
             } catch (e: Exception) {
-                Log.e("network error", e.localizedMessage)
+                e.localizedMessage?.let { Log.e("network error", it) }
             }
         }
     }

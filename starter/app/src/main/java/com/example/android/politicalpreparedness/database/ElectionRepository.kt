@@ -7,7 +7,7 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 
 class ElectionRepository(
-    private val apiService: CivicsApiService = CivicsApi.retrofitService
+    private val apiService: CivicsApiService
 ) : ElectionDataSource {
 
     override suspend fun getElections(): List<Election> = apiService.getElections().elections

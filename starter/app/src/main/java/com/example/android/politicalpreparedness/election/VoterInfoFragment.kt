@@ -8,17 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import org.koin.android.ext.android.inject
 
 class VoterInfoFragment : Fragment() {
 
     val args: VoterInfoFragmentArgs by navArgs()
 
-    private val _viewModel: VoterInfoViewModel by lazy {
-        ViewModelProvider(this)[VoterInfoViewModel::class.java]
-    }
+    private val _viewModel: VoterInfoViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
