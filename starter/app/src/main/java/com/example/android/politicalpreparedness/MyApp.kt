@@ -19,7 +19,9 @@ class MyApp : Application() {
 
         val myModule = module {
             viewModel {
-                VoterInfoViewModel()
+                VoterInfoViewModel(
+                    get()
+                )
             }
             viewModel {
                 ElectionsViewModel(
