@@ -14,9 +14,8 @@ class ElectionRepository(
 
     override suspend fun getVoterInfo(
         electionId: Int,
-        division: Division
+        address: String
     ): VoterInfoResponse {
-        val address = """${division.country}/${division.state}"""
         return CivicsApi.retrofitService.getVoterInfo(address, electionId)
     }
 }

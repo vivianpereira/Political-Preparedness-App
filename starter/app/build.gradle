@@ -63,6 +63,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit: $retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesAdapterVersion"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$moshiVersion"

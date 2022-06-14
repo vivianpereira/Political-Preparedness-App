@@ -19,6 +19,16 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="ElectionHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small_margin</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
     <style name="VoterInfoDate">
         <item name="android:layout_margin">@dimen/medium_padding</item>
     </style>

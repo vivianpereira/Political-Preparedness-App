@@ -7,5 +7,5 @@ import com.example.android.politicalpreparedness.network.models.VoterInfoRespons
 
 interface ElectionDataSource {
     suspend fun getElections(): List<Election>
-    suspend fun getVoterInfo(electionId: Int, division: Division): VoterInfoResponse
+    suspend fun getVoterInfo(electionId: Int, address: String): VoterInfoResponse
 }
