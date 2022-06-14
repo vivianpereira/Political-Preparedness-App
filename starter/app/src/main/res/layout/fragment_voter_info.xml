@@ -88,7 +88,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/follow_unfollow_button"
             style="@style/Button"
-            android:text="Follow Election"
+            android:text="@string/follow_election_text_button"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

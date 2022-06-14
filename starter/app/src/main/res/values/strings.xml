@@ -10,5 +10,6 @@
     <string name="election_information">Election Information</string>
     <string name="voting_location">Voting Location</string>
     <string name="ballot_information">Ballot Information</string>
+    <string name="follow_election_text_button">Follow Election</string>
 
 </resources>
