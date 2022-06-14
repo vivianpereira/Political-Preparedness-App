@@ -9,8 +9,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="LaunchButton" parent="TextAppearance.AppCompat.Button">
+    <style name="Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/medium_margin</item>
+        <item name="android:layout_marginBottom">@dimen/medium_margin</item>
         <item name="android:layout_marginEnd">@dimen/medium_margin</item>
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@android:color/white</item>
@@ -34,6 +37,5 @@
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/medium_margin</item>
     </style>
-
 
 </resources>

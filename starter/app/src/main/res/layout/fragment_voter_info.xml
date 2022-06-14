@@ -85,6 +85,15 @@
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header" />
 
         <!-- TODO: Add button to save election to Room -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/follow_unfollow_button"
+            style="@style/Button"
+            android:text="@string/follow_election_text_button"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
