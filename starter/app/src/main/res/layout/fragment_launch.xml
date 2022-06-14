@@ -21,10 +21,7 @@
 
         <Button
             android:id="@+id/upcomingButton"
-            style="@style/LaunchButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_margin"
+            style="@style/Button"
             android:text="@string/upcoming_elections"
             app:layout_constraintBottom_toTopOf="@+id/representative_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +29,7 @@
 
         <Button
             android:id="@+id/representative_button"
-            style="@style/LaunchButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_margin"
+            style="@style/Button"
             android:text="@string/find_my_representatives"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
