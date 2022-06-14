@@ -44,23 +44,23 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
         <TextView
-            android:id="@+id/state_locations"
+            android:id="@+id/voting_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{viewModel.onLocationClicked()}"
             android:text="@string/voting_location"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
-        <!-- TODO: Add click binding to open web URL -->
         <TextView
-            android:id="@+id/state_ballot"
+            android:id="@+id/ballot_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{viewModel.onInformationClicked()}"
             android:text="@string/ballot_information"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            app:layout_constraintTop_toBottomOf="@id/state_locations" />
+            app:layout_constraintTop_toBottomOf="@id/voting_location" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/address_group"
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            app:layout_constraintTop_toBottomOf="@id/state_ballot" />
+            app:layout_constraintTop_toBottomOf="@id/ballot_information" />
 
         <!-- TODO: Add data binding -->
         <TextView

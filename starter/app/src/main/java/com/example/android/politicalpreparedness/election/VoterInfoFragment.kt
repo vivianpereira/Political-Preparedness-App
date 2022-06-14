@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 
 class VoterInfoFragment : Fragment() {
 
-    val args: VoterInfoFragmentArgs by navArgs()
+    private val args: VoterInfoFragmentArgs by navArgs()
 
     private val _viewModel: VoterInfoViewModel by inject()
 
@@ -30,14 +32,15 @@ class VoterInfoFragment : Fragment() {
 
         _viewModel.setElection(args.election)
 
-        //TODO: Populate voter info -- hide views without provided data.
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-         */
+        _viewModel.hideVoterInfo.observe(viewLifecycleOwner, Observer {
+            hideVoterInfo(binding)
+            Snackbar.make(requireView(), R.string.error_message, Snackbar.LENGTH_LONG).show()
+        })
 
         _viewModel.url.observe(viewLifecycleOwner, Observer {
-            startUrl(it)
-            _viewModel.getVoterInfo()
+            if (it != null) {
+                startUrl(it)
+            }
         })
 
         //TODO: Handle save button UI state
@@ -50,5 +53,11 @@ class VoterInfoFragment : Fragment() {
     private fun startUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    private fun hideVoterInfo(binding: FragmentVoterInfoBinding) {
+        binding.stateHeader.visibility = View.GONE
+        binding.votingLocation.visibility = View.GONE
+        binding.ballotInformation.visibility = View.GONE
     }
 }
