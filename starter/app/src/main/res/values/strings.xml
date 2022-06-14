@@ -11,5 +11,6 @@
     <string name="voting_location">Voting Location</string>
     <string name="ballot_information">Ballot Information</string>
     <string name="error_message">I\'m sorry! There is no information for this section.</string>
+    <string name="saved_elections_header">Saved Elections</string>
 
 </resources>
