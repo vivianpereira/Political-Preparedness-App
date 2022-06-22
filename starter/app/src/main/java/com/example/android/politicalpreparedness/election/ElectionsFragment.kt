@@ -26,8 +26,13 @@ class ElectionsFragment : Fragment() {
         val binding = FragmentElectionBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val electionAdapter = ElectionListAdapter(OnElectionClickListener { navToVoterInfo(it) })
+        val electionAdapter =
+            ElectionListAdapter(OnElectionClickListener { navToVoterInfo(it, false) })
         binding.electionRecyclerView.adapter = electionAdapter
+
+        val savedElectionAdapter =
+            ElectionListAdapter(OnElectionClickListener { navToVoterInfo(it, true) })
+        binding.savedRecyclerView.adapter = savedElectionAdapter
 
         _viewModel.upcomingElectionsList.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -35,17 +40,26 @@ class ElectionsFragment : Fragment() {
             }
         })
 
+        _viewModel.savedElectionsList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                savedElectionAdapter.submitList(it)
+            }
+        })
+
         return binding.root
     }
 
-    private fun navToVoterInfo(election: Election) {
+    private fun navToVoterInfo(election: Election, followed: Boolean) {
         findNavController().navigate(
             ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
-                election
+                election,
+                followed
             )
         )
     }
 
-    //TODO: Refresh adapters when fragment loads
-
+    override fun onResume() {
+        super.onResume()
+        _viewModel.refreshLoads()
+    }
 }

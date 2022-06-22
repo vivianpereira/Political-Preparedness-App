@@ -2,11 +2,11 @@ package com.example.android.politicalpreparedness.database
 
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.CivicsApiService
-import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 
 class ElectionRepository(
+    private val electionDao: ElectionDao,
     private val apiService: CivicsApiService
 ) : ElectionDataSource {
 
@@ -17,5 +17,19 @@ class ElectionRepository(
         address: String
     ): VoterInfoResponse {
         return CivicsApi.retrofitService.getVoterInfo(address, electionId)
+    }
+
+    override suspend fun getSavedElection(): List<Election> = electionDao.getAllElections()
+
+    override suspend fun removeElectionById(id: Int) {
+        electionDao.removeElectionById(id)
+    }
+
+    override suspend fun saveElection(election: Election) {
+        electionDao.insertElection(election)
+    }
+
+    override suspend fun getElectionById(id: Int): Election? {
+        return electionDao.getElectionById(id)
     }
 }
