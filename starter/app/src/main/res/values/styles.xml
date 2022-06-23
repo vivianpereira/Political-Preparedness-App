@@ -12,7 +12,7 @@
         <item name="android:textSize">22sp</item>
     </style>
 
-    <style name="RepresentativeButton" >
+    <style name="RepresentativeButton">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginTop">@dimen/small_margin</item>
@@ -52,6 +52,25 @@
     <style name="VoterInfoHeader">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/medium_margin</item>
+    </style>
+
+    <style name="ProfileImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_margin</item>
+    </style>
+
+    <style name="Representative">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">@dimen/large_margin</item>
+    </style>
+
+    <style name="SocialIcons">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
     </style>
 
 </resources>
