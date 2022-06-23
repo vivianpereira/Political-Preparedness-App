@@ -32,6 +32,9 @@ class MyApp : Application() {
                 )
             }
             viewModel {
+                RepresentativeViewModel()
+            }
+            viewModel {
                 RepresentativeViewModel(
                 )
             }
