@@ -30,7 +30,7 @@ class VoterInfoFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = _viewModel
 
-        _viewModel.setElection(args.election)
+        _viewModel.initialise(args.election, args.followed)
 
         _viewModel.hideVoterInfo.observe(viewLifecycleOwner, Observer {
             hideVoterInfo(binding)
@@ -42,10 +42,6 @@ class VoterInfoFragment : Fragment() {
                 startUrl(it)
             }
         })
-
-        //TODO: Handle save button UI state
-
-        //TODO: cont'd Handle save button clicks
 
         return binding.root
     }

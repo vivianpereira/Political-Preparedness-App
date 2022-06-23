@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDataSource
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
@@ -13,11 +14,7 @@ import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : ViewModel() {
 
-    fun setElection(election: Election) {
-        _election.value = election
-        getVoterInfo()
-    }
-
+    private var followed = false
     private val _election = MutableLiveData<Election>()
     val election: LiveData<Election>
         get() = _election
@@ -30,6 +27,32 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
     private val _url = MutableLiveData<String>()
     val url: LiveData<String>
         get() = _url
+
+    private val _followButton = MutableLiveData(R.string.follow_election_text_button)
+    val followButton: LiveData<Int>
+        get() = _followButton
+
+    fun initialise(election: Election, followed: Boolean) {
+        _election.value = election
+        this.followed = followed
+        getVoterInfo()
+        setUpFollowedButton(followed, election)
+    }
+
+    private fun setUpFollowedButton(followed: Boolean, election: Election) {
+        viewModelScope.launch {
+            if (!followed) {
+                val savedElection = electionRepository.getElectionById(election.id)
+                this@VoterInfoViewModel.followed = savedElection != null
+            }
+
+            if (this@VoterInfoViewModel.followed) {
+                _followButton.value = R.string.unfollow_election_text_button
+            } else {
+                _followButton.value = R.string.follow_election_text_button
+            }
+        }
+    }
 
     private fun getVoterInfo() {
         viewModelScope.launch {
@@ -56,10 +79,6 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
             election.division.country.uppercase()
         }
 
-    //TODO: Add var and methods to save and remove elections to local database
-
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
-
     fun onLocationClicked() = View.OnClickListener {
         voterInfo?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl.let {
             _url.value = it
@@ -69,6 +88,22 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
     fun onInformationClicked() = View.OnClickListener {
         voterInfo?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl.let {
             _url.value = it
+        }
+    }
+
+    fun onFollowClicked() {
+        viewModelScope.launch {
+            election.value?.let {
+                if (followed) {
+                    electionRepository.removeElectionById(it.id)
+                    _followButton.value = R.string.follow_election_text_button
+                    followed = false
+                } else {
+                    electionRepository.saveElection(it)
+                    _followButton.value = R.string.unfollow_election_text_button
+                    followed = true
+                }
+            }
         }
     }
 }

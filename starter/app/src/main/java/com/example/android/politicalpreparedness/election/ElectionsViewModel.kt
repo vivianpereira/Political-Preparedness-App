@@ -17,6 +17,10 @@ class ElectionsViewModel(
     val upcomingElectionsList: LiveData<List<Election>>
         get() = _upcomingElectionsList
 
+    private val _savedElectionsList = MutableLiveData<List<Election>>()
+    val savedElectionsList: LiveData<List<Election>>
+        get() = _savedElectionsList
+
     init {
         getElections()
     }
@@ -24,12 +28,15 @@ class ElectionsViewModel(
     private fun getElections() {
         viewModelScope.launch {
             try {
-                val elections = electionRepository.getElections()
-                _upcomingElectionsList.value = elections
+                _upcomingElectionsList.value = electionRepository.getElections()
+                _savedElectionsList.value = electionRepository.getSavedElection()
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
             }
         }
     }
 
+    fun refreshLoads() {
+        getElections()
+    }
 }

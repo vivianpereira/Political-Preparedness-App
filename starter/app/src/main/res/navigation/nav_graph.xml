@@ -31,6 +31,9 @@
         <argument
             android:name="election"
             app:argType="com.example.android.politicalpreparedness.network.models.Election" />
+        <argument
+            android:name="followed"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/electionsFragment"

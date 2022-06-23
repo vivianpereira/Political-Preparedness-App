@@ -1,7 +1,9 @@
 package com.example.android.politicalpreparedness
 
 import android.app.Application
+import com.example.android.politicalpreparedness.database.ElectionDao
 import com.example.android.politicalpreparedness.database.ElectionDataSource
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.database.ElectionRepository
 import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.election.VoterInfoViewModel
@@ -32,9 +34,11 @@ class MyApp : Application() {
             single { Dispatchers.IO }
             single<ElectionDataSource> {
                 ElectionRepository(
+                    get(),
                     get()
                 )
             }
+            single { ElectionDatabase.getInstance(this@MyApp).electionDao as ElectionDao }
         }
 
         startKoin {
