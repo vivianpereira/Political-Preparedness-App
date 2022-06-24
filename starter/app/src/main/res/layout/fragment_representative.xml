@@ -25,7 +25,6 @@
             android:text="@string/representative_search"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_1"
@@ -33,10 +32,10 @@
             android:layout_height="wrap_content"
             android:hint="@string/address_line_1"
             android:inputType="textPostalAddress"
+            android:text="@{viewModel.address.line1}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_title" />
 
-        <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/address_line_2"
@@ -44,45 +43,43 @@
             android:layout_height="wrap_content"
             android:hint="@string/address_line_2"
             android:inputType="textPostalAddress"
+            android:text="@{viewModel.address.line2}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
-        <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/city"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:hint="@string/city"
             android:inputType="textPostalAddress"
+            android:text="@{viewModel.address.city}"
             app:layout_constraintEnd_toStartOf="@id/state"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
         <!-- TODO: Add default values from provided resources  -->
-        <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
         <Spinner
             android:id="@+id/state"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            stateValue="@{viewModel.address.state}"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/zero"
             android:autofillHints=""
-            android:inputType="textPostalAddress"
             app:layout_constraintBottom_toBottomOf="@id/city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/city"
             app:layout_constraintTop_toTopOf="@id/city" />
 
-        <!-- TODO: Add data binding value -->
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/zip"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:hint="@string/zip"
             android:inputType="number"
             android:maxLength="5"
-            app:layout_constraintEnd_toEndOf="@id/city"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/city" />
 
@@ -118,7 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_padding"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/representative_title" />
+            app:layout_constraintTop_toBottomOf="@+id/representative_title"
+            motion:layout_editor_absoluteX="8dp" />
 
         <TextView
             android:id="@+id/list_placeholder"

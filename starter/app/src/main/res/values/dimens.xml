@@ -4,6 +4,7 @@
     <!-- MARGIN -->
     <dimen name="small_margin">6dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
+    <dimen name="large_margin">42dp</dimen>
     <dimen name="extra_large_margin">110dp</dimen>
 
     <!-- PADDING -->
@@ -13,5 +14,6 @@
     <!-- FONTS -->
     <dimen name="medium_text_size">18sp</dimen>
     <dimen name="large_text_size">26sp</dimen>
+    <dimen name="zero">0dp</dimen>
 
 </resources>
