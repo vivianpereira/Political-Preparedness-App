@@ -44,6 +44,10 @@ class RepresentativeViewHolder(private val binding: ItemRepresentativeBinding) :
     }
 
     companion object {
+        const val FACEBOOK = "Facebook"
+        const val TWITTER = "Twitter"
+        const val FACEBOOK_URL = "https://www.facebook.com/"
+        const val TWITTER_URL = "https://www.twitter.com/"
         fun from(parent: ViewGroup): RepresentativeViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemRepresentativeBinding.inflate(layoutInflater, parent, false)
@@ -68,14 +72,14 @@ class RepresentativeViewHolder(private val binding: ItemRepresentativeBinding) :
     }
 
     private fun getFacebookUrl(channels: List<Channel>): String? {
-        return channels.filter { channel -> channel.type == "Facebook" }
-            .map { channel -> "https://www.facebook.com/${channel.id}" }
+        return channels.filter { channel -> channel.type == FACEBOOK }
+            .map { channel -> "${FACEBOOK_URL}${channel.id}" }
             .firstOrNull()
     }
 
     private fun getTwitterUrl(channels: List<Channel>): String? {
-        return channels.filter { channel -> channel.type == "Twitter" }
-            .map { channel -> "https://www.twitter.com/${channel.id}" }
+        return channels.filter { channel -> channel.type == TWITTER }
+            .map { channel -> "${TWITTER_URL}${channel.id}" }
             .firstOrNull()
     }
 

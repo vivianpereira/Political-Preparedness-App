@@ -48,8 +48,6 @@ class DetailFragment : Fragment() {
             val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition)
             val city = binding.city.text
             val zip = binding.zip.text
-//            _viewModel.findRepresentatives("$address2 $address1, $city, $state, $zip")
-//            hideKeyboard()
         }
 
         return binding.root
