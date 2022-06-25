@@ -1,12 +1,16 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.database.ElectionDataSource
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
+import kotlinx.coroutines.launch
 
-class RepresentativeViewModel : ViewModel() {
+class RepresentativeViewModel(private val electionRepository: ElectionDataSource) : ViewModel() {
 
     private val _representative = MutableLiveData<List<Representative>>()
     val representative: LiveData<List<Representative>>
@@ -16,19 +20,35 @@ class RepresentativeViewModel : ViewModel() {
     val address: LiveData<Address>
         get() = _address
 
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
+    private val _searchRepresentatives = MutableLiveData<String?>()
+    val searchRepresentatives: LiveData<String?>
+        get() = _searchRepresentatives
 
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+    fun getRepresentatives(address: String) {
+        viewModelScope.launch {
+            try {
+                val (offices, officials) = electionRepository.getRepresentatives(address)
+                _representative.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+            } catch (e: Exception) {
+                Log.e("Representative", e.localizedMessage)
+            }
+        }
+    }
 
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
+    fun getAddress(address: Address) {
+        _address.value = address
+    }
 
-     */
-
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
+    fun searchRepresentativesByAddress(
+        address1: String,
+        address2: String,
+        city: String,
+        state: String,
+        zip: String
+    ) {
+        val address = "$address1 $address2 $city, $state $zip"
+        _searchRepresentatives.value = address
+        getRepresentatives(address)
+    }
 
 }

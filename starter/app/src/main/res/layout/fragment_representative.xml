@@ -50,7 +50,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/city"
-            android:layout_width="@dimen/zero"
+            android:layout_width="@dimen/size_zero"
             android:layout_height="wrap_content"
             android:hint="@string/city"
             android:inputType="textPostalAddress"
@@ -64,8 +64,8 @@
         <Spinner
             android:id="@+id/state"
             stateValue="@{viewModel.address.state}"
-            android:layout_width="@dimen/zero"
-            android:layout_height="@dimen/zero"
+            android:layout_width="@dimen/size_zero"
+            android:layout_height="@dimen/size_zero"
             android:autofillHints=""
             app:layout_constraintBottom_toBottomOf="@id/city"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
         <!-- TODO: Add visual styling and content -->
         <EditText
             android:id="@+id/zip"
-            android:layout_width="@dimen/zero"
+            android:layout_width="@dimen/zip_size"
             android:layout_height="wrap_content"
             android:hint="@string/zip"
             android:inputType="number"
