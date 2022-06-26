@@ -32,7 +32,11 @@ class MyApp : Application() {
                 )
             }
             viewModel {
+                RepresentativeViewModel()
+            }
+            viewModel {
                 RepresentativeViewModel(
+                    get()
                 )
             }
             single { CivicsApi.retrofitService }

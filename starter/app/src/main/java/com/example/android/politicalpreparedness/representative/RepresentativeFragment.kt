@@ -1,9 +1,12 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -12,6 +15,8 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.OnRepresentativeClickListener
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import java.util.Locale
 import org.koin.android.ext.android.inject
 
@@ -21,7 +26,8 @@ class DetailFragment : Fragment() {
         //TODO: Add Constant for Location request
     }
 
-    //TODO: Declare ViewModel
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+
     private val _viewModel: RepresentativeViewModel by inject()
 
     override fun onCreateView(
@@ -43,11 +49,23 @@ class DetailFragment : Fragment() {
         })
 
         binding.buttonSearch.setOnClickListener {
-            val address1 = binding.addressLine1.text
-            val address2 = binding.addressLine2.text
-            val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition)
-            val city = binding.city.text
-            val zip = binding.zip.text
+//            val address1 = binding.addressLine1.text.toString()
+//            val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition).toString()
+//            val address2 = binding.addressLine2.text.toString()
+//            val city = binding.city.text.toString()
+//            val zip = binding.zip.text.toString()
+            val address1 = "2876 Shore Dr"
+            val address2 = ""
+            val state = "VA"
+            val city = "Virginia Beach"
+            val zip = "23451"
+
+            hideKeyboard()
+            _viewModel.searchRepresentativesByAddress(address1, address2, state, city, zip)
+        }
+
+        binding.buttonLocation.setOnClickListener {
+            getLocation()
         }
 
         return binding.root
@@ -62,23 +80,17 @@ class DetailFragment : Fragment() {
         //TODO: Handle location permission result to get location on permission granted
     }
 
-    private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
-            true
-        } else {
-            //TODO: Request Location permissions
-            false
-        }
-    }
-
-    private fun isPermissionGranted(): Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
-        return false
-    }
-
+    @SuppressLint("MissingPermission")
     private fun getLocation() {
-        //TODO: Get location from LocationServices
-        //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity as Activity)
+        fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+            try {
+                val address = geoCodeLocation(location)
+                _viewModel.getAddress(address)
+            } catch (e: Exception) {
+                Log.e("Representative", e.localizedMessage)
+            }
+        }
     }
 
     private fun geoCodeLocation(location: Location): Address {
@@ -100,5 +112,5 @@ class DetailFragment : Fragment() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
-
 }
+
