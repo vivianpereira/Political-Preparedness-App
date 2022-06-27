@@ -66,14 +66,12 @@ class DetailFragment : Fragment() {
         }
 
         _viewModel.errorMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(context, R.string.error_location_required, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
 
         binding.buttonLocation.setOnClickListener {
             if (checkLocationPermissions()) {
                 getLocation()
-            } else {
-                Toast.makeText(context, R.string.error_location_required, Toast.LENGTH_LONG).show()
             }
         }
 
