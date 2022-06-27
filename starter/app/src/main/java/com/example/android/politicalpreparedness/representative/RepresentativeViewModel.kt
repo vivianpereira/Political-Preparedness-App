@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDataSource
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
@@ -28,6 +29,10 @@ class RepresentativeViewModel(
     private val _searchRepresentatives = MutableLiveData<String?>()
     val searchRepresentatives: LiveData<String?>
         get() = _searchRepresentatives
+
+    private val _errorMessage = MutableLiveData<Int>()
+    val errorMessage: LiveData<Int>
+        get() = _errorMessage
 
     private fun getRepresentatives(address: String) {
         viewModelScope.launch {
@@ -65,6 +70,8 @@ class RepresentativeViewModel(
                 getRepresentatives(
                     "${address.line1} ${address.line2} ${address.city}, ${address.state} ${address.zip}"
                 )
+            } else {
+                _errorMessage.value = R.string.error_location_required
             }
         } catch (e: Exception) {
             Log.e("Representative", e.localizedMessage)
@@ -75,7 +82,7 @@ class RepresentativeViewModel(
         return geocoder.getFromLocation(location.latitude, location.longitude, 1)
             .map { address ->
                 Address(
-                    address.thoroughfare,
+                    address.thoroughfare ?: address.premises,
                     address.subThoroughfare,
                     address.locality,
                     address.adminArea,

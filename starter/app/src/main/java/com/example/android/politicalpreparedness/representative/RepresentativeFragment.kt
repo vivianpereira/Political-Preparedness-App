@@ -8,9 +8,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.OnRepresentativeClickListener
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
@@ -63,9 +65,15 @@ class DetailFragment : Fragment() {
             _viewModel.searchRepresentativesByAddress(address1, address2, state, city, zip)
         }
 
+        _viewModel.errorMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(context, R.string.error_location_required, Toast.LENGTH_LONG).show()
+        }
+
         binding.buttonLocation.setOnClickListener {
             if (checkLocationPermissions()) {
                 getLocation()
+            } else {
+                Toast.makeText(context, R.string.error_location_required, Toast.LENGTH_LONG).show()
             }
         }
 
@@ -80,14 +88,17 @@ class DetailFragment : Fragment() {
     }
 
     private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
-            true
-        } else {
-            requestPermissions(
-                arrayOf(ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
-            false
+        return when {
+            isPermissionGranted() -> {
+                true
+            }
+            else -> {
+                requestPermissions(
+                    arrayOf(ACCESS_FINE_LOCATION),
+                    REQUEST_LOCATION_PERMISSION
+                )
+                false
+            }
         }
     }
 
@@ -101,8 +112,6 @@ class DetailFragment : Fragment() {
             REQUEST_LOCATION_PERMISSION -> {
                 if (grantResults.isNotEmpty() || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation()
-                } else {
-                    checkLocationPermissions()
                 }
             }
         }
