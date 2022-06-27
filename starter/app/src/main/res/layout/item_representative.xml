@@ -27,6 +27,7 @@
             android:id="@+id/office_name"
             style="@style/Representative"
             android:text="@{data.office.name}"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="parent" />
 
