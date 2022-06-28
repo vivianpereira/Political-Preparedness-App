@@ -60,6 +60,8 @@
             stateValue="@{viewModel.address.state}"
             android:layout_width="@dimen/size_zero"
             android:layout_height="@dimen/size_zero"
+            android:entries="@array/states"
+            android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@id/city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/city"
