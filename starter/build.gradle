@@ -2,7 +2,7 @@ buildscript {
     ext {
         gradlePluginAndroidVersion = "7.1.3"
         coreKtxVersion = '1.7.0'
-        constraintLayoutVersion = "2.1.0"
+        constraintLayoutVersion = "2.1.4"
         glideVersion = "4.8.0"
         kotlinVersion = '1.6.10'
         koltinSerializationVersion = "0.14.0"
