@@ -34,6 +34,16 @@ class ElectionsFragment : Fragment() {
             ElectionListAdapter(OnElectionClickListener { navToVoterInfo(it, true) })
         binding.savedRecyclerView.adapter = savedElectionAdapter
 
+        _viewModel.showProgress.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.mainContentElection.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.mainContentElection.visibility = View.VISIBLE
+            }
+        })
+
         _viewModel.upcomingElectionsList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 electionAdapter.submitList(it)

@@ -69,6 +69,16 @@ class DetailFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
 
+        _viewModel.showProgress.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.mainContentRepresentative.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.mainContentRepresentative.visibility = View.VISIBLE
+            }
+        })
+
         binding.buttonLocation.setOnClickListener {
             if (checkLocationPermissions()) {
                 getLocation()

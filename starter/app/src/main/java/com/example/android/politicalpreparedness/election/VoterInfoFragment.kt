@@ -37,6 +37,16 @@ class VoterInfoFragment : Fragment() {
             Snackbar.make(requireView(), R.string.error_message, Snackbar.LENGTH_LONG).show()
         })
 
+        _viewModel.showProgress.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.mainContentVoterInfo.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.mainContentVoterInfo.visibility = View.VISIBLE
+            }
+        })
+
         _viewModel.url.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 startUrl(it)

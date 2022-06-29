@@ -21,11 +21,16 @@ class ElectionsViewModel(
     val savedElectionsList: LiveData<List<Election>>
         get() = _savedElectionsList
 
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean>
+        get() = _showProgress
+
     init {
         getElections()
     }
 
     private fun getElections() {
+        _showProgress.value = true
         viewModelScope.launch {
             try {
                 _upcomingElectionsList.value = electionRepository.getElections()
@@ -33,6 +38,7 @@ class ElectionsViewModel(
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
             }
+            _showProgress.postValue(false)
         }
     }
 
