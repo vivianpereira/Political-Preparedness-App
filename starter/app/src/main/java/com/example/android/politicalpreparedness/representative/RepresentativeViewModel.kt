@@ -26,10 +26,6 @@ class RepresentativeViewModel(
     val address: LiveData<Address>
         get() = _address
 
-    private val _searchRepresentatives = MutableLiveData<String?>()
-    val searchRepresentatives: LiveData<String?>
-        get() = _searchRepresentatives
-
     private val _errorMessage = MutableLiveData<Int>()
     val errorMessage: LiveData<Int>
         get() = _errorMessage
@@ -55,11 +51,15 @@ class RepresentativeViewModel(
         address2: String,
         city: String,
         state: String,
+        statePosition: Int,
         zip: String
     ) {
-        val address = "$address1 $address2 $city, $state $zip"
-        _searchRepresentatives.value = address
-        getRepresentatives(address)
+        if (statePosition == 0 || address1.isEmpty() || zip.isEmpty()) {
+            _errorMessage.value = R.string.error_invalid_address
+        } else {
+            val address = "$address1 $address2 $city, $state $zip"
+            getRepresentatives(address)
+        }
     }
 
     fun searchByLocation(location: Location?) {
