@@ -32,6 +32,10 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
     val followButton: LiveData<Int>
         get() = _followButton
 
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean>
+        get() = _showProgress
+
     fun initialise(election: Election, followed: Boolean) {
         _election.value = election
         this.followed = followed
@@ -55,6 +59,7 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
     }
 
     private fun getVoterInfo() {
+        _showProgress.value = true
         viewModelScope.launch {
             try {
                 val election = election.value
@@ -69,6 +74,7 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
             }
+            _showProgress.postValue(false)
         }
     }
 

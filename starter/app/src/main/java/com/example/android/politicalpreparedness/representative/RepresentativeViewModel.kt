@@ -30,7 +30,12 @@ class RepresentativeViewModel(
     val errorMessage: LiveData<Int>
         get() = _errorMessage
 
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean>
+        get() = _showProgress
+
     private fun getRepresentatives(address: String) {
+        _showProgress.value = true
         viewModelScope.launch {
             try {
                 val (offices, officials) = electionRepository.getRepresentatives(address)
@@ -39,6 +44,7 @@ class RepresentativeViewModel(
             } catch (e: Exception) {
                 Log.e("Representative", e.localizedMessage)
             }
+            _showProgress.postValue(false)
         }
     }
 
