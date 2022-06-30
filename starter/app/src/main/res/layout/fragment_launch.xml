@@ -8,32 +8,41 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <ImageView
-            android:id="@+id/home_screen_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/extra_large_margin"
-            android:contentDescription="@string/ballot_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ballot_logo" />
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_launch_scene"
+            tools:layout_editor_absoluteX="-34dp"
+            tools:layout_editor_absoluteY="248dp">
 
-        <Button
-            android:id="@+id/upcomingButton"
-            style="@style/Button"
-            android:text="@string/upcoming_elections"
-            app:layout_constraintBottom_toTopOf="@+id/representative_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:id="@+id/home_screen_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:contentDescription="@string/ballot_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ballot_logo" />
 
-        <Button
-            android:id="@+id/representative_button"
-            style="@style/Button"
-            android:text="@string/find_my_representatives"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/upcomingButton"
+                style="@style/Button"
+                android:text="@string/upcoming_elections"
+                app:layout_constraintBottom_toTopOf="@+id/representative_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <Button
+                android:id="@+id/representative_button"
+                style="@style/Button"
+                android:text="@string/find_my_representatives"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
