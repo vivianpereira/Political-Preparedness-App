@@ -23,5 +23,6 @@
     <string name="address_line_1">Address Line 1</string>
     <string name="error_location_required">Please, enable the location!</string>
     <string name="error_invalid_address">Please, enter a valid address!</string>
+    <string name="error_internet_connection">Please, check your internet connection!</string>
 
 </resources>

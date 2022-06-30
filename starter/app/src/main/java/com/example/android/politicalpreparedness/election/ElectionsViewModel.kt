@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDataSource
 import com.example.android.politicalpreparedness.network.models.Election
 import kotlinx.coroutines.launch
@@ -20,6 +21,10 @@ class ElectionsViewModel(
     private val _savedElectionsList = MutableLiveData<List<Election>>()
     val savedElectionsList: LiveData<List<Election>>
         get() = _savedElectionsList
+
+    private val _errorMessage = MutableLiveData<Int>()
+    val errorMessage: LiveData<Int>
+        get() = _errorMessage
 
     private val _showProgress = MutableLiveData<Boolean>()
     val showProgress: LiveData<Boolean>
@@ -37,6 +42,7 @@ class ElectionsViewModel(
                 _savedElectionsList.value = electionRepository.getSavedElection()
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
+                _errorMessage.value = R.string.error_internet_connection
             }
             _showProgress.postValue(false)
         }
