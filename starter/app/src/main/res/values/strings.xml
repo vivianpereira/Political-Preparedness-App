@@ -22,5 +22,6 @@
     <string name="address_line_2">Address Line 2</string>
     <string name="address_line_1">Address Line 1</string>
     <string name="error_location_required">Please, enable the location!</string>
+    <string name="error_invalid_address">Please, enter a valid address!</string>
 
 </resources>

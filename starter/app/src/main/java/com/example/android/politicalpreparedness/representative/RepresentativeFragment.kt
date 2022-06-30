@@ -50,19 +50,21 @@ class DetailFragment : Fragment() {
         })
 
         binding.buttonSearch.setOnClickListener {
-//            val address1 = binding.addressLine1.text.toString()
-//            val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition).toString()
-//            val address2 = binding.addressLine2.text.toString()
-//            val city = binding.city.text.toString()
-//            val zip = binding.zip.text.toString()
-            val address1 = "2876 Shore Dr"
-            val address2 = ""
-            val state = "VA"
-            val city = "Virginia Beach"
-            val zip = "23451"
+            val address1 = binding.addressLine1.text.toString()
+            val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition).toString()
+            val address2 = binding.addressLine2.text.toString()
+            val city = binding.city.text.toString()
+            val zip = binding.zip.text.toString()
 
             hideKeyboard()
-            _viewModel.searchRepresentativesByAddress(address1, address2, state, city, zip)
+            _viewModel.searchRepresentativesByAddress(
+                address1,
+                address2,
+                city,
+                state,
+                binding.state.selectedItemPosition,
+                zip
+            )
         }
 
         _viewModel.errorMessage.observe(viewLifecycleOwner) {
