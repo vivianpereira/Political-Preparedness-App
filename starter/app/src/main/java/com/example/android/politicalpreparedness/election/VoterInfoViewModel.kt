@@ -77,7 +77,7 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
                 }
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
-                _errorMessage.value = R.string.error_internet_connection
+                _errorMessage.value = R.string.error_message
             }
             _showProgress.postValue(false)
         }

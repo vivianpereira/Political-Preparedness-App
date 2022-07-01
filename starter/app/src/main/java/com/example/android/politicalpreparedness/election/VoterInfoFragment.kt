@@ -35,7 +35,7 @@ class VoterInfoFragment : Fragment() {
 
         _viewModel.hideVoterInfo.observe(viewLifecycleOwner, Observer {
             hideVoterInfo(binding)
-            Toast.makeText(context, R.string.error_message, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, R.string.error_no_election, Toast.LENGTH_LONG).show()
         })
 
         _viewModel.errorMessage.observe(viewLifecycleOwner) {

@@ -12,7 +12,7 @@
     <string name="ballot_information">Ballot Information</string>
     <string name="follow_election_text_button">Follow Election</string>
     <string name="unfollow_election_text_button">UnFollow Election</string>
-    <string name="error_message">I\'m sorry! There is no information for this section.</string>
+    <string name="error_no_election">I\'m sorry! There is no information for this section.</string>
     <string name="saved_elections_header">Saved Elections</string>
     <string name="representative_search">Representative Search</string>
     <string name="my_representatives">My Representatives</string>
@@ -23,6 +23,6 @@
     <string name="address_line_1">Address Line 1</string>
     <string name="error_location_required">Please, enable the location!</string>
     <string name="error_invalid_address">Please, enter a valid address!</string>
-    <string name="error_internet_connection">Please, check your internet connection!</string>
+    <string name="error_message">Something went wrong, please try again!</string>
 
 </resources>
