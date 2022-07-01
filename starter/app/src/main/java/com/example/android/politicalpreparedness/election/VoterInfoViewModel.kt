@@ -32,6 +32,10 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
     val followButton: LiveData<Int>
         get() = _followButton
 
+    private val _errorMessage = MutableLiveData<Int>()
+    val errorMessage: LiveData<Int>
+        get() = _errorMessage
+
     private val _showProgress = MutableLiveData<Boolean>()
     val showProgress: LiveData<Boolean>
         get() = _showProgress
@@ -73,6 +77,7 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
                 }
             } catch (e: Exception) {
                 e.localizedMessage?.let { Log.e("network error", it) }
+                _errorMessage.value = R.string.error_message
             }
             _showProgress.postValue(false)
         }

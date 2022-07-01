@@ -43,6 +43,7 @@ class RepresentativeViewModel(
                     offices.flatMap { office -> office.getRepresentatives(officials) }
             } catch (e: Exception) {
                 Log.e("Representative", e.localizedMessage)
+                _errorMessage.value = R.string.error_message
             }
             _showProgress.postValue(false)
         }
@@ -81,6 +82,7 @@ class RepresentativeViewModel(
             }
         } catch (e: Exception) {
             Log.e("Representative", e.localizedMessage)
+            _errorMessage.value = R.string.error_message
         }
     }
 
