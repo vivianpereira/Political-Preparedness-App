@@ -6,13 +6,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.OnRepresentativeClickListener
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
@@ -36,9 +40,11 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentRepresentativeBinding.inflate(inflater)
+        val binding: FragmentRepresentativeBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_representative, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = _viewModel
+        binding.executePendingBindings()
 
         val representativeAdapter = RepresentativeListAdapter(OnRepresentativeClickListener {})
         binding.representativeRecyclerView.adapter = representativeAdapter

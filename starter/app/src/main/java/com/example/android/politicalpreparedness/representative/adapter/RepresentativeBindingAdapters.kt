@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.representative.adapter
 
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.net.toUri
@@ -13,7 +14,7 @@ import com.example.android.politicalpreparedness.R
 @BindingAdapter("profileImage")
 fun fetchImage(view: ImageView, src: String?) {
     src?.let {
-        val uri = src.toUri().buildUpon().scheme("https").build()
+        val uri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(view.context)
             .load(uri)
             .placeholder(R.drawable.ic_profile)
