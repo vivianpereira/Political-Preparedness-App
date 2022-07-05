@@ -12,12 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 
 class VoterInfoFragment : Fragment() {
-
-    private val args: VoterInfoFragmentArgs by navArgs()
 
     private val _viewModel: VoterInfoViewModel by inject()
 
@@ -30,7 +27,7 @@ class VoterInfoFragment : Fragment() {
         val binding = FragmentVoterInfoBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = _viewModel
-
+        val args: VoterInfoFragmentArgs by navArgs()
         _viewModel.initialise(args.election, args.followed)
 
         _viewModel.hideVoterInfo.observe(viewLifecycleOwner, Observer {
