@@ -24,5 +24,6 @@
     <string name="error_location_required">Please, enable the location!</string>
     <string name="error_invalid_address">Please, enter a valid address!</string>
     <string name="error_message">Something went wrong, please try again!</string>
+    <string name="error_no_information">No information about this election</string>
 
 </resources>

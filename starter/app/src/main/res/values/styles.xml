@@ -51,6 +51,7 @@
 
     <style name="VoterInfoHeader">
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:layout_marginTop">@dimen/medium_margin</item>
     </style>
 
