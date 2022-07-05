@@ -42,8 +42,8 @@ class ElectionsFragment : Fragment() {
 
         _viewModel.showProgress.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
                 binding.mainContentElection.visibility = View.GONE
-                binding.savedElectionsTitle.visibility = View.GONE
             } else {
                 binding.progressBar.visibility = View.GONE
                 binding.mainContentElection.visibility = View.VISIBLE
