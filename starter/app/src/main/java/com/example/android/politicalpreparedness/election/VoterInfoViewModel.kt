@@ -68,10 +68,8 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
             try {
                 val election = election.value
                 if (election != null && election.division.state.isNotBlank()) {
-                    val address =
-                        """${getCountry(election)}/${election.division.state.uppercase()}"""
-                    val response = electionRepository.getVoterInfo(election.id, address)
-                    voterInfo = response
+                    val address = getAddress(election)
+                    voterInfo = electionRepository.getVoterInfo(election.id, address)
                 } else {
                     _hideVoterInfo.value = Unit
                 }
@@ -83,22 +81,27 @@ class VoterInfoViewModel(private val electionRepository: ElectionDataSource) : V
         }
     }
 
-    private fun getCountry(election: Election): String =
-        if (election.division.country.uppercase() == "US") {
-            "USA"
-        } else {
-            election.division.country.uppercase()
-        }
+    private fun getAddress(election: Election): String =
+        """${election.division.country}/${election.division.state}""".uppercase()
 
     fun onLocationClicked() = View.OnClickListener {
-        voterInfo?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl.let {
+        val urlClicked =
+            voterInfo?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl
+                ?: voterInfo?.state?.get(0)?.electionAdministrationBody?.electionInfoUrl
+        urlClicked?.let {
             _url.value = it
+        } ?: run {
+            _errorMessage.value = R.string.error_no_information
         }
     }
 
     fun onInformationClicked() = View.OnClickListener {
-        voterInfo?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl.let {
+        val urlClicked = voterInfo?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl
+            ?: voterInfo?.state?.get(0)?.electionAdministrationBody?.electionInfoUrl
+        urlClicked?.let {
             _url.value = it
+        } ?: run {
+            _errorMessage.value = R.string.error_no_information
         }
     }
 

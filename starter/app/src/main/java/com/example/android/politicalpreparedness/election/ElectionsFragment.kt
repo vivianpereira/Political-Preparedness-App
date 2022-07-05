@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -57,7 +58,14 @@ class ElectionsFragment : Fragment() {
 
         _viewModel.savedElectionsList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                savedElectionAdapter.submitList(it)
+                if (it.isEmpty()) {
+                    binding.savedElectionsTitle.isVisible = false
+                    binding.savedRecyclerView.isVisible = false
+                } else {
+                    savedElectionAdapter.submitList(it)
+                    binding.savedElectionsTitle.isVisible = true
+                    binding.savedRecyclerView.isVisible = true
+                }
             }
         })
 

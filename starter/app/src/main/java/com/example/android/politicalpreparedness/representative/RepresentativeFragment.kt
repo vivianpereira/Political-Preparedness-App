@@ -10,9 +10,9 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.representative.adapter.OnRepresentativeClickListener
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
@@ -45,13 +45,21 @@ class DetailFragment : Fragment() {
 
         _viewModel.representative.observe(viewLifecycleOwner, Observer {
             it?.let {
-                representativeAdapter.submitList(it)
+                if (it.isEmpty()) {
+                    binding.representativeTitle.isVisible = false
+                    binding.representativeRecyclerView.isVisible = false
+                } else {
+                    representativeAdapter.submitList(it)
+                    binding.representativeTitle.isVisible = true
+                    binding.representativeRecyclerView.isVisible = true
+                }
             }
         })
 
         binding.buttonSearch.setOnClickListener {
             val address1 = binding.addressLine1.text.toString()
-            val state = binding.state.getItemAtPosition(binding.state.selectedItemPosition).toString()
+            val state =
+                binding.state.getItemAtPosition(binding.state.selectedItemPosition).toString()
             val address2 = binding.addressLine2.text.toString()
             val city = binding.city.text.toString()
             val zip = binding.zip.text.toString()
